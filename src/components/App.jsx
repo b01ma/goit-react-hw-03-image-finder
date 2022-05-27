@@ -1,17 +1,29 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        textTransform: 'uppercase',
-        color: '#010101',
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import { Component } from 'react/cjs/react.production.min';
+import Searchbar from './Searchbar/Searchbar';
+import css from './App.module.css';
+import ImageGallery from './ImageGallery/ImageGallery';
+
+export class App extends Component {
+  state = {
+    query: null,
+  };
+
+  getQuery = query => {
+    this.setState({
+      query,
+    });
+  };
+
+  render() {
+    return (
+      <div className={css.App}>
+        <Searchbar onSubmit={this.getQuery} />
+        <ImageGallery />
+
+        {/* <Loader /> */}
+
+        {/* <Modal /> */}
+      </div>
+    );
+  }
+}
