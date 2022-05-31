@@ -16,6 +16,11 @@ class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
+    if (this.state.query.trim() === '') {
+      alert('ты за кого меня принимаешь? введи имя, по-нормальному');
+      return;
+    }
+
     this.props.onSubmit(this.state.query);
 
     this.setState({
