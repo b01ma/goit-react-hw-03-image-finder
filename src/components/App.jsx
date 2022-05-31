@@ -2,7 +2,6 @@ import { Component } from 'react/cjs/react.production.min';
 import Searchbar from './Searchbar/Searchbar';
 import css from './App.module.css';
 import ImageGallery from './ImageGallery/ImageGallery';
-import getImage from 'service/PixabayAPI';
 
 export class App extends Component {
   state = {
