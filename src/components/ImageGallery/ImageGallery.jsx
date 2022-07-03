@@ -40,6 +40,7 @@ class ImageGallery extends Component {
 
   handleClick = e => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
+    console.log('click');
   };
 
   render() {
@@ -47,7 +48,9 @@ class ImageGallery extends Component {
     return (
       <div>
         <div>
-          {this.props.query && <p>We are looking for {this.props.query}</p>}
+          {this.props.query && (
+            <p className={css.p}>We are looking for {this.props.query}</p>
+          )}
           {console.log('Есть картинки:', Boolean(images))}
         </div>
 
@@ -60,9 +63,7 @@ class ImageGallery extends Component {
               />
             ))}
         </ul>
-        <button type="button" onClick={this.handleClick}>
-          Load More
-        </button>
+        {images && <Button onClick={this.handleClick} />}
       </div>
     );
   }

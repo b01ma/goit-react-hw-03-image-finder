@@ -40,9 +40,13 @@ class Searchbar extends Component {
             autoComplete="off"
             placeholder="Search images and photos"
           />
-          <Button>
+          <button
+            type="submit"
+            className={css.button}
+            onClick={this.handleSubmit}
+          >
             <SearchIcon width="20" hieght="20" />
-          </Button>
+          </button>
         </form>
       </header>
     );
