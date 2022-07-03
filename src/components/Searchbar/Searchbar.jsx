@@ -1,5 +1,4 @@
 import css from './Searchbar.module.css';
-import Button from 'components/Button/Button';
 import { ReactComponent as SearchIcon } from '../../icons/search-icon.svg';
 
 const { Component } = require('react/cjs/react.production.min');

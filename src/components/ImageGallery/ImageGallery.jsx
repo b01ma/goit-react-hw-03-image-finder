@@ -3,7 +3,6 @@ import css from './ImageGallery.module.css';
 import { Component } from 'react/cjs/react.production.min';
 import getImage from 'service/PixabayAPI';
 import Button from 'components/Button/Button';
-import { toHaveDisplayValue } from '@testing-library/jest-dom/dist/matchers';
 
 class ImageGallery extends Component {
   state = {
