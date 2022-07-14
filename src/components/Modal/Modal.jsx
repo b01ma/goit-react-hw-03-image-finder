@@ -23,14 +23,14 @@ export class Modal extends Component {
   handleOverlayClick = e => {
     console.log(e.target);
 
-    if (e.target == e.currentTarget) {
+    if (e.target === e.currentTarget) {
       this.props.closeModal();
     }
   };
 
   handleKeyPress = e => {
     console.log(e.keyCode);
-    if (e.keyCode == 27) {
+    if (e.keyCode === 27) {
       console.log('pressed ESC - time to slose modal');
       this.props.closeModal();
     }
