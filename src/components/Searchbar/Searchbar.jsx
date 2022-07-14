@@ -44,7 +44,7 @@ class Searchbar extends Component {
             className={css.button}
             onClick={this.handleSubmit}
           >
-            <SearchIcon width="20" hieght="20" />
+            <SearchIcon width="18" hieght="18" />
           </button>
         </form>
       </header>

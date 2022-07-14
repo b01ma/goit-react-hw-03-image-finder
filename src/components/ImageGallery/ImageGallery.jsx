@@ -2,67 +2,67 @@ import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import css from './ImageGallery.module.css';
 import { Component } from 'react/cjs/react.production.min';
 import getImage from 'service/PixabayAPI';
-import Button from 'components/Button/Button';
+import Loader from 'components/Loader/Loader';
 
 class ImageGallery extends Component {
   state = {
-    images: null,
-    page: 1,
-    initialPage: 1,
+    images: [],
+    loader: false,
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.query !== this.props.query) {
       console.log('new query - пора отправлять запрос');
 
-      getImage(this.props.query, this.state.initialPage)
+      this.setState({ loader: true });
+
+      getImage(this.props.query, this.props.currentPage, this.props.hitsPerPage)
         .then(r => r.json())
         .then(r => {
           this.setState({ images: r.hits });
+          this.props.getInfo(r.totalHits);
+        })
+        .catch(e => {
+          console.log('error:', e.message);
+        })
+        .finally(() => {
+          this.setState({ loader: false });
         });
+    } else if (prevProps.currentPage !== this.props.currentPage) {
+      this.setState({ loader: true });
 
-      this.setState({ page: this.state.initialPage });
-    }
-
-    if (
-      prevState.page !== this.state.page &&
-      this.state.page !== this.state.initialPage
-    ) {
-      console.log('new page - пора отправлять запрос');
-      getImage(this.props.query, this.state.page)
+      getImage(this.props.query, this.props.currentPage, this.props.hitsPerPage)
         .then(r => r.json())
         .then(r => {
           this.setState({ images: [...this.state.images, ...r.hits] });
+          this.props.getInfo(r.totalHits);
+        })
+        .catch(e => {
+          console.log('error:', e.message);
+        })
+        .finally(() => {
+          this.setState({ loader: false });
         });
     }
   }
-
-  handleClick = e => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
-    console.log('click');
-  };
 
   render() {
     const { images } = this.state;
     return (
       <div>
-        <div>
-          {this.props.query && (
-            <p className={css.p}>We are looking for {this.props.query}</p>
-          )}
-          {console.log('Есть картинки:', Boolean(images))}
-        </div>
-
         <ul className={css.gallery}>
           {images &&
             images.map(image => (
               <ImageGalleryItem
+                getImgUrl={this.props.getImgUrl}
                 key={image.id}
                 previewUrl={image.webformatURL}
+                largeUrl={image.largeImageURL}
               />
             ))}
         </ul>
-        {images && <Button onClick={this.handleClick} />}
+
+        {this.state.loader && <Loader />}
       </div>
     );
   }
