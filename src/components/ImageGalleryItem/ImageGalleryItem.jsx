@@ -2,7 +2,6 @@ import css from './ImageGalleryItem.module.css';
 
 const ImageGalleryItem = ({ previewUrl, largeUrl, getImgUrl }) => {
   const handleClick = () => {
-    console.log('img click');
     getImgUrl(largeUrl);
   };
 

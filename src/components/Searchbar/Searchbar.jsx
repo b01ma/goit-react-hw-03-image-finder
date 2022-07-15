@@ -16,7 +16,7 @@ class Searchbar extends Component {
     e.preventDefault();
 
     if (this.state.query.trim() === '') {
-      alert('ты за кого меня принимаешь? введи хоть что-то');
+      alert('empty field, enter the query');
       return;
     }
 

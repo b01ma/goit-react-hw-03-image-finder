@@ -12,8 +12,6 @@ class ImageGallery extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.query !== this.props.query) {
-      console.log('new query - пора отправлять запрос');
-
       this.setState({ loader: true });
 
       getImage(this.props.query, this.props.currentPage, this.props.hitsPerPage)

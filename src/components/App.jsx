@@ -5,7 +5,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Massage from './Massage/Massage';
 import Modal from './Modal/Modal';
-// import Loader from './Loader/Loader';
+import Loader from './Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -14,6 +14,7 @@ export class App extends Component {
     totalHits: 0,
     hitsPerPage: 10,
     largeImageUrl: null,
+    loader: true,
   };
 
   getFormInputQuery = query => {
@@ -27,14 +28,11 @@ export class App extends Component {
   };
 
   getLargeImgUrl = url => {
-    console.log(url);
-
     this.setState({ largeImageUrl: url });
   };
 
   handleClick = e => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
-    console.log('click');
   };
 
   showLoadMoreButton = () => {
@@ -47,8 +45,16 @@ export class App extends Component {
   };
 
   closeModal = () => {
-    console.log('time to close modal');
-    this.setState({ largeImageUrl: null });
+    this.setState({ largeImageUrl: null, loader: true });
+  };
+
+  handleOnLoad = () => {
+    this.setState({ loader: false });
+  };
+
+  handleOnError = () => {
+    this.setState({ loader: false });
+    console.log('something went wrong, no image');
   };
 
   render() {
@@ -67,15 +73,18 @@ export class App extends Component {
           getImgUrl={this.getLargeImgUrl}
         />
 
-        {/* <Loader /> */}
-
         {this.showLoadMoreButton() && <Button onClick={this.handleClick} />}
 
         {largeImageUrl && (
-          <Modal
-            largeImageUrl={largeImageUrl}
-            closeModal={this.closeModal}
-          ></Modal>
+          <Modal closeModal={this.closeModal}>
+            {this.state.loader && <Loader />}
+            <img
+              src={this.state.largeImageUrl}
+              alt=""
+              onLoad={this.handleOnLoad}
+              onError={this.handleOnError}
+            />
+          </Modal>
         )}
       </div>
     );
