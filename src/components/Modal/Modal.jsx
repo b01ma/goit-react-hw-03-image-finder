@@ -1,5 +1,6 @@
 import css from './Modal.module.css';
 import { Component } from 'react/cjs/react.production.min';
+import PropTypes from 'prop-types';
 
 export class Modal extends Component {
   componentDidMount() {
@@ -27,6 +28,9 @@ export class Modal extends Component {
   };
 
   render() {
+    Modal.propTypes = {
+      closeModal: PropTypes.func.isRequired,
+    };
     return (
       <div
         className={css.overlay}
@@ -35,8 +39,12 @@ export class Modal extends Component {
       >
         <div className={css.modal}>{this.props.children}</div>
 
-        <button type="button" onClick={this.handleClick}>
-          Close
+        <button
+          className={css.closeButton}
+          type="button"
+          onClick={this.handleClick}
+        >
+          X
         </button>
       </div>
     );

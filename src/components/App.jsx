@@ -2,8 +2,9 @@ import { Component } from 'react/cjs/react.production.min';
 import css from './App.module.css';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Message from './Message/Message';
 import Button from './Button/Button';
-import Massage from './Massage/Massage';
+
 import Modal from './Modal/Modal';
 import Loader from './Loader/Loader';
 
@@ -11,7 +12,7 @@ export class App extends Component {
   state = {
     query: '',
     page: 1,
-    totalHits: 0,
+    totalHits: null,
     hitsPerPage: 10,
     largeImageUrl: null,
     loader: true,
@@ -31,7 +32,7 @@ export class App extends Component {
     this.setState({ largeImageUrl: url });
   };
 
-  handleClick = e => {
+  handleClick = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
@@ -63,7 +64,9 @@ export class App extends Component {
       <div className={css.App}>
         <Searchbar onSubmit={this.getFormInputQuery} />
 
-        {this.state.query && <Massage query={query} />}
+        {this.state.totalHits === 0 && (
+          <Message text={`Sorry, no picture of ${this.state.query}`} />
+        )}
 
         <ImageGallery
           query={query}
@@ -72,9 +75,7 @@ export class App extends Component {
           hitsPerPage={hitsPerPage}
           getImgUrl={this.getLargeImgUrl}
         />
-
         {this.showLoadMoreButton() && <Button onClick={this.handleClick} />}
-
         {largeImageUrl && (
           <Modal closeModal={this.closeModal}>
             {this.state.loader && <Loader />}

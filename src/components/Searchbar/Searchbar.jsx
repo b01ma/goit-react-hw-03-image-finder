@@ -1,5 +1,6 @@
 import css from './Searchbar.module.css';
 import { ReactComponent as SearchIcon } from '../../icons/search-icon.svg';
+import PropTypes from 'prop-types';
 
 const { Component } = require('react/cjs/react.production.min');
 
@@ -28,6 +29,10 @@ class Searchbar extends Component {
   };
 
   render() {
+    Searchbar.propTypes = {
+      onSubmit: PropTypes.func.isRequired,
+    };
+
     return (
       <header className={css.searchbar}>
         <form onSubmit={this.handleSubmit} className={css.SearchForm}>

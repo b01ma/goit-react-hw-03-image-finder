@@ -1,4 +1,5 @@
 import css from './ImageGalleryItem.module.css';
+import PropTypes from 'prop-types';
 
 const ImageGalleryItem = ({ previewUrl, largeUrl, getImgUrl }) => {
   const handleClick = () => {
@@ -15,6 +16,12 @@ const ImageGalleryItem = ({ previewUrl, largeUrl, getImgUrl }) => {
       />
     </li>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  previewUrl: PropTypes.string,
+  largeUrl: PropTypes.string,
+  getImgUrl: PropTypes.func,
 };
 
 export default ImageGalleryItem;

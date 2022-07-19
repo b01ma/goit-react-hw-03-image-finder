@@ -3,6 +3,7 @@ import css from './ImageGallery.module.css';
 import { Component } from 'react/cjs/react.production.min';
 import getImage from 'service/PixabayAPI';
 import Loader from 'components/Loader/Loader';
+import PropTypes from 'prop-types';
 
 class ImageGallery extends Component {
   state = {
@@ -46,6 +47,14 @@ class ImageGallery extends Component {
 
   render() {
     const { images } = this.state;
+
+    ImageGallery.propTypes = {
+      currentPage: PropTypes.number,
+      getImgUrl: PropTypes.func.isRequired,
+      getInfo: PropTypes.func.isRequired,
+      hitsPerPage: PropTypes.number,
+      query: PropTypes.string,
+    };
     return (
       <div>
         <ul className={css.gallery}>
