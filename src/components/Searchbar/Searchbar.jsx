@@ -22,10 +22,6 @@ class Searchbar extends Component {
     }
 
     this.props.onSubmit(this.state.query);
-
-    this.setState({
-      query: '',
-    });
   };
 
   render() {
@@ -44,11 +40,7 @@ class Searchbar extends Component {
             autoComplete="off"
             placeholder="Search images and photos"
           />
-          <button
-            type="submit"
-            className={css.button}
-            onClick={this.handleSubmit}
-          >
+          <button type="submit" className={css.button}>
             <SearchIcon width="18" hieght="18" />
           </button>
         </form>

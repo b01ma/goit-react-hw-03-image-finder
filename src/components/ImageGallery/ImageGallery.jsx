@@ -49,10 +49,10 @@ class ImageGallery extends Component {
     const { images } = this.state;
 
     ImageGallery.propTypes = {
-      currentPage: PropTypes.number,
+      currentPage: PropTypes.number.isRequired,
       getImgUrl: PropTypes.func.isRequired,
       getInfo: PropTypes.func.isRequired,
-      hitsPerPage: PropTypes.number,
+      hitsPerPage: PropTypes.number.isRequired,
       query: PropTypes.string,
     };
     return (
